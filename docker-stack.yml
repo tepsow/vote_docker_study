@@ -6,12 +6,15 @@ services:
     networks:
       - frontend
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
         parallelism: 2
         delay: 10s
       restart_policy:
-        condition: on-failure
+      condition: on-failure
+      resources:
+        limits: '0.1'
+        memory: 50M
   db:
     image: postgres:9.4
     environment:
@@ -24,6 +27,10 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+      condition: on-failure
+    resources:
+        limits: '0.1'
+        memory: 100M    
   vote:
     image: dockersamples/examplevotingapp_vote:before
     ports:
@@ -38,6 +45,9 @@ services:
         parallelism: 2
       restart_policy:
         condition: on-failure
+      resources:
+        limits: '0.1'
+        memory: 50M
   result:
     image: dockersamples/examplevotingapp_result:before
     ports:
@@ -47,13 +57,16 @@ services:
     depends_on:
       - db
     deploy:
-      replicas: 1
+      replicas: 2
       update_config:
         parallelism: 2
         delay: 10s
       restart_policy:
         condition: on-failure
-
+      condition: on-failure
+      resources:
+        limits: '0.1'
+        memory: 50M
   worker:
     image: dockersamples/examplevotingapp_worker
     networks:
@@ -64,7 +77,7 @@ services:
       - redis
     deploy:
       mode: replicated
-      replicas: 1
+      replicas: 2
       labels: [APP=VOTING]
       restart_policy:
         condition: on-failure
@@ -73,6 +86,10 @@ services:
         window: 120s
       placement:
         constraints: [node.role == manager]
+      condition: on-failure
+      resources:
+        limits: '0.1'
+        memory: 50M        
 
   visualizer:
     image: dockersamples/visualizer:stable
@@ -84,6 +101,10 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
+      condition: on-failure
+      resources:
+        limits: '0.05'
+        memory: 50M        
 
 networks:
   frontend:
