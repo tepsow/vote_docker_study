@@ -13,7 +13,7 @@ services:
       resources:
         limits: 
           cpus: '0.1'
-          memory: 50M        
+          memory: 100M        
       restart_policy:
         condition: on-failure
 
@@ -32,7 +32,7 @@ services:
       resources:
         limits: 
           cpus: '0.1'
-          memory: 50M   
+          memory: 100M   
   vote:
     image: dockersamples/examplevotingapp_vote:before
     ports:
@@ -48,7 +48,7 @@ services:
       resources:
         limits: 
           cpus: '0.1'
-          memory: 50M        
+          memory: 100M        
       restart_policy:
         condition: on-failure
 
@@ -68,7 +68,7 @@ services:
       resources:
         limits: 
           cpus: '0.1'
-          memory: 50M        
+          memory: 100M        
       restart_policy:
         condition: on-failure
 
@@ -88,7 +88,7 @@ services:
       resources:
         limits: 
           cpus: '0.1'
-          memory: 50M        
+          memory: 100M        
       restart_policy:
         condition: on-failure
         delay: 10s
