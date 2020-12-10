@@ -15,7 +15,7 @@ services:
           cpus: '0.1'
           memory: 50M        
       restart_policy:
-      condition: on-failure
+        condition: on-failure
 
   db:
     image: postgres:9.4
@@ -29,7 +29,6 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-      condition: on-failure
       resources:
         limits: 
           cpus: '0.1'
@@ -108,7 +107,6 @@ services:
     deploy:
       placement:
         constraints: [node.role == manager]
-      condition: on-failure
       resources:
         limits: 
           cpus: '0.5'
