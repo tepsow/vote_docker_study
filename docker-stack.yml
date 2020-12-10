@@ -10,12 +10,13 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
-      restart_policy:
-      condition: on-failure
       resources:
         limits: 
           cpus: '0.1'
-          memory: 50M
+          memory: 50M        
+      restart_policy:
+      condition: on-failure
+
   db:
     image: postgres:9.4
     environment:
@@ -45,12 +46,13 @@ services:
       replicas: 2
       update_config:
         parallelism: 2
-      restart_policy:
-        condition: on-failure
       resources:
         limits: 
           cpus: '0.1'
-          memory: 50M
+          memory: 50M        
+      restart_policy:
+        condition: on-failure
+
   result:
     image: dockersamples/examplevotingapp_result:before
     ports:
@@ -64,13 +66,14 @@ services:
       update_config:
         parallelism: 2
         delay: 10s
-      restart_policy:
-        condition: on-failure
-      condition: on-failure
       resources:
         limits: 
           cpus: '0.1'
-          memory: 50M
+          memory: 50M        
+      restart_policy:
+        condition: on-failure
+
+
   worker:
     image: dockersamples/examplevotingapp_worker
     networks:
@@ -83,18 +86,17 @@ services:
       mode: replicated
       replicas: 2
       labels: [APP=VOTING]
+      resources:
+        limits: 
+          cpus: '0.1'
+          memory: 50M        
       restart_policy:
         condition: on-failure
         delay: 10s
         max_attempts: 3
         window: 120s
       placement:
-        constraints: [node.role == manager]
-      condition: on-failure
-      resources:
-        limits: 
-          cpus: '0.1'
-          memory: 50M      
+        constraints: [node.role == manager]    
 
   visualizer:
     image: dockersamples/visualizer:stable
