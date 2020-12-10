@@ -109,7 +109,7 @@ services:
         constraints: [node.role == manager]
       resources:
         limits: 
-          cpus: '0.5'
+          cpus: '0.05'
           memory: 50M      
 
 networks:
